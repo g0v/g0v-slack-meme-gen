@@ -1,6 +1,6 @@
 # g0v Slack Archive 訊息迷因產生器(WIP)
 
-這是一個 Chrome 擴充功能，專門為 g0v Slack Archive 頁面設計，可以在訊息旁新增按鈕並以彈出視窗顯示內容。
+這是一個 Chrome 擴充功能，專門為 [g0v Slack Archive](https://g0v-slack-archive.g0v.ronny.tw/) 頁面設計，可以在訊息旁新增按鈕並以彈出視窗顯示內容。
 
 ## 功能特色
 
