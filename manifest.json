@@ -1,0 +1,14 @@
+{
+  "manifest_version": 3,
+  "name": "Row Button Extension",
+  "version": "1.0",
+  "description": "Adds buttons to rows and shows popups",
+  "permissions": ["activeTab"],
+  "content_scripts": [
+    {
+      "matches": ["https://g0v-slack-archive.g0v.ronny.tw/index/channel/*"],
+      "js": ["content.js"],
+      "css": ["styles.css"]
+    }
+  ]
+} 
