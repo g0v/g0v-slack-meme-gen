@@ -7,8 +7,8 @@
   "content_scripts": [
     {
       "matches": ["https://g0v-slack-archive.g0v.ronny.tw/index/channel/*"],
-      "js": ["content.js"],
+      "js": ["libs/html2canvas.min.js", "content.js"],
       "css": ["styles.css"]
     }
   ]
-} 
+}
