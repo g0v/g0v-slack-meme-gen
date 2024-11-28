@@ -32,6 +32,7 @@ function addButtonsToRows() {
     // Create button container
     const buttonCell = document.createElement('div'); // Create a container for the button
     buttonCell.style.display = 'inline-block'; // Optional: style the button container
+    buttonCell.style.marginBottom = '16px';
     buttonCell.appendChild(button); // Append the button to the button container
     row.appendChild(buttonCell);
 
@@ -60,11 +61,20 @@ function showPopup(row) {
   // Get content from row - modify this according to your needs
   const { messageTime, content, avatar, userName } = row;
 
+  const getBase64Image = (img) => {
+    const canvas = document.createElement("canvas");
+    canvas.width = img.width;
+    canvas.height = img.height;
+    const ctx = canvas.getContext("2d");
+    ctx.drawImage(img, 0, 0);
+    return canvas.toDataURL("image/png");
+  };
+
   // Add content to popup
   popup.innerHTML = `
     <div class="popup-header">
       <button class="close-button">&times;</button>
-      <button id="save-image" class="save-button">儲存圖片</button>
+      <button id="save-image" class="save-button row-action-button">儲存圖片</button>
     </div>
     <div class="popup-content border" id="popup-content" style="display: flex;
   flex-direction: column;
@@ -75,7 +85,7 @@ function showPopup(row) {
       </div>
       <div class="popup-meme" style="padding: 5vh 0;">
         <div class="popup-quot" style="font-size: 5vh">“</div>
-        <p class="meme-content" style="padding: 3vh;">
+        <p class="meme-content" style="padding: 3vh; word-break: break-word;">
         ${content}
         </p>
         <div class="popup-quot" style="text-align: end;font-size: 5vh">”</div>
@@ -92,32 +102,13 @@ function showPopup(row) {
       </div>   
     </div>
   `;
-  // no inline css version
-  // <div class="popup-header">
-  //     <button class="close-button">&times;</button>
-  //     <button id="save-image" class="save-button">儲存圖片</button>
-  //   </div>
-  //   <div class="popup-content" id="popup-content">
-  //     <div class="meme-time">
-  //       ${messageTime}
-  //     </div>
-  //     <div class="popup-meme">
-  //       <div class="popup-quot border">“</div>
-  //       <p class="meme-content border">
-  //       ${content}
-  //       </p>
-  //       <div class="popup-quot border" style="text-align: end">”</div>
-  //     </div>
-  //     <div class="popup-footer border">
-  //       <img src=${avatar} width="36" height="36">
-  //       <div class="popup-userName">
-  //         <div style="font-size: small">@g0v Slack #${channelName}</div>
-  //         <div style="font-size: large">
-  //         <strong>${userName}</strong>
-  //         </div>
-  //       </div>
-  //     </div>
-  //   </div>
+
+  const tempImg = new Image();
+  tempImg.crossOrigin = "anonymous";
+  tempImg.onload = function() {
+    popup.querySelector('.popup-footer img').src = getBase64Image(tempImg);
+  };
+  tempImg.src = avatar;
 
   // Add close button functionality
   popup.querySelector('.close-button').addEventListener('click', () => {

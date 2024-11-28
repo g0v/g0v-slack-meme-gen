@@ -1,14 +1,22 @@
 {
   "manifest_version": 3,
-  "name": "Row Button Extension",
+  "name": "g0v slack archive meme generator",
   "version": "1.0",
   "description": "Adds buttons to rows and shows popups",
   "permissions": ["activeTab"],
+  "host_permissions": [
+    "*://*.slack.com/*",
+    "*://*.slack-edge.com/*",
+    "*://*.gravatar.com/*"
+  ],
   "content_scripts": [
     {
       "matches": ["https://g0v-slack-archive.g0v.ronny.tw/index/channel/*"],
       "js": ["libs/html2canvas.min.js", "content.js"],
       "css": ["styles.css"]
     }
-  ]
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  }
 }
