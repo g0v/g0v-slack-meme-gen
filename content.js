@@ -3,7 +3,9 @@ let buttons = [];
 function addButtonsToRows() {
   console.log('addButtonsToRows');
   // Select all rows - modify this selector according to your target page structure
-  const rows = document.querySelectorAll('.message');
+  const _rows1 = document.querySelectorAll('.message');
+  const _rows2 = document.querySelectorAll('.message > .content > div[style="padding-top: 5px"]');
+  const rows = [..._rows1, ..._rows2];
   console.log(rows[0]);
   rows.forEach((row) => {
     const button = document.createElement('button');
@@ -122,7 +124,7 @@ function showPopup(row) {
       logging: true, // 開啟日誌，有助於調試
     }).then((canvas) => {
       const link = document.createElement('a');
-      link.download = 'meme.png'; // Set the filename
+      link.download = `g0v-meme-${userName}-${channelName}-${messageTime}.png`; // Set the filename
       link.href = canvas.toDataURL('image/png'); // Convert canvas to image URL
       link.click(); // Trigger download
     });
