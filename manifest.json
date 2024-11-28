@@ -3,7 +3,7 @@
   "name": "g0v slack archive meme generator",
   "version": "1.0",
   "description": "Adds buttons to rows and shows popups",
-  "permissions": ["activeTab"],
+  "permissions": ["activeTab", "downloads", "scripting"],
   "host_permissions": [
     "*://*.slack.com/*",
     "*://*.slack-edge.com/*",
@@ -18,5 +18,8 @@
   ],
   "action": {
     "default_popup": "popup.html"
+  },
+  "background": {
+    "service_worker": "background.js"
   }
 }

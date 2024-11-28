@@ -1,9 +1,9 @@
 // Function to create and add buttons to rows
+let buttons = [];
 function addButtonsToRows() {
   console.log('addButtonsToRows');
   // Select all rows - modify this selector according to your target page structure
   const rows = document.querySelectorAll('.message');
-
   console.log(rows[0]);
   rows.forEach((row) => {
     const button = document.createElement('button');
@@ -35,7 +35,7 @@ function addButtonsToRows() {
     buttonCell.style.marginBottom = '16px';
     buttonCell.appendChild(button); // Append the button to the button container
     row.appendChild(buttonCell);
-
+    buttons.push(button);
     // Add click event listener
     button.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -60,15 +60,6 @@ function showPopup(row) {
 
   // Get content from row - modify this according to your needs
   const { messageTime, content, avatar, userName } = row;
-
-  const getBase64Image = (img) => {
-    const canvas = document.createElement("canvas");
-    canvas.width = img.width;
-    canvas.height = img.height;
-    const ctx = canvas.getContext("2d");
-    ctx.drawImage(img, 0, 0);
-    return canvas.toDataURL("image/png");
-  };
 
   // Add content to popup
   popup.innerHTML = `
@@ -102,13 +93,19 @@ function showPopup(row) {
       </div>   
     </div>
   `;
-
-  const tempImg = new Image();
-  tempImg.crossOrigin = "anonymous";
-  tempImg.onload = function() {
-    popup.querySelector('.popup-footer img').src = getBase64Image(tempImg);
-  };
-  tempImg.src = avatar;
+  
+  // Request base64 image from background script
+  chrome.runtime.sendMessage(
+    { type: 'getBase64Image', imageUrl: avatar },
+    response => {
+      if (response.success) {
+        popup.querySelector('.popup-footer img').src = response.base64Data;
+      } else {
+        console.log('Failed to convert image:', response.error);
+        popup.querySelector('.popup-footer img').src = avatar;
+      }
+    }
+  );
 
   // Add close button functionality
   popup.querySelector('.close-button').addEventListener('click', () => {
@@ -120,6 +117,7 @@ function showPopup(row) {
     const popupContent = popup.querySelector('#popup-content');
     html2canvas(popupContent, {
       scale: 2, // 設置渲染解析度為原來的 2 倍
+      allowTaint: true,
       useCORS: true, // 啟用 CORS 支援
       logging: true, // 開啟日誌，有助於調試
     }).then((canvas) => {
