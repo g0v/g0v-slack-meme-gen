@@ -4,7 +4,9 @@ function addButtonsToRows() {
   console.log('addButtonsToRows');
   // Select all rows - modify this selector according to your target page structure
   const _rows1 = document.querySelectorAll('.message');
-  const _rows2 = document.querySelectorAll('.message > .content > div[style="padding-top: 5px"]');
+  const _rows2 = document.querySelectorAll(
+    '.message > .content > div[style="padding-top: 5px"]'
+  );
   const rows = [..._rows1, ..._rows2];
   console.log(rows[0]);
   rows.forEach((row) => {
@@ -47,7 +49,7 @@ function addButtonsToRows() {
 }
 
 // Function to create and show popup
-function showPopup(row) {
+function showPopup(row, style = 'classic') {
   // Remove any existing popup
   const existingPopup = document.querySelector('.custom-popup');
   if (existingPopup) {
@@ -62,14 +64,22 @@ function showPopup(row) {
 
   // Get content from row - modify this according to your needs
   const { messageTime, content, avatar, userName } = row;
-
-  // Add content to popup
-  popup.innerHTML = `
+  const popupHeader = `
     <div class="popup-header">
       <button class="close-button">&times;</button>
-      <button id="save-image" class="save-button row-action-button">儲存圖片</button>
-    </div>
-    <div class="popup-content border" id="popup-content" style="display: flex;
+      <div class="style-button-group">
+        <button class="style-classic-button">經典</button>
+        <button class="style-black-button">黑底</button>
+        <button id="save-image" class="save-button row-action-button">儲存圖片</button>
+      </div>
+    </div>`;
+  // Add content to popup
+  if (style === 'classic') {
+    // classic popup style
+    console.log('classic popup style');
+    popup.innerHTML = `
+    ${popupHeader}
+    <div class="popup-content border-to-show" id="popup-content" style="display: flex;
   flex-direction: column;
   max-height: 70vh;
   overflow-y: auto;padding: 20px;width:300px;border-radius:10px;">
@@ -95,11 +105,45 @@ function showPopup(row) {
       </div>   
     </div>
   `;
-  
+  } else if (style === 'black') {
+    // black background popup style
+    console.log('black background popup style');
+    popup.innerHTML = `
+    ${popupHeader}
+    <div class="popup-content border-to-show" id="popup-content" style="display: flex;
+          flex-direction: column;
+          height: auto;
+          max-height: 70vh;
+          overflow-y: auto;
+          padding: 20px;
+          width: auto;
+          max-width:600px;
+          background-color: black;
+          color: white;
+          ">
+      <div class="meme-time" style="display:flex; justify-content: end;">
+        ${messageTime}    
+      </div>
+      <div class="popup-meme" style="display:flex; padding: 5vh 0; justify-content: space-between;">
+        <img class="border" src=${avatar} style="width: 100px; height: 100px; object-fit: cover;">
+        <div class="popup-userName border" style="display: flex; flex-direction: column;margin-left: 5%;">
+          <p class="meme-content" style="padding: 3vh; word-break: break-word;min-width: 400px">
+          ${content}
+          </p>
+          <div class="border" style="font-size: small;text-align: end;">@g0v Slack #${channelName}</div>
+          <div class="border" style="font-size: large;text-align: end;">
+          <strong>${userName}</strong>
+          </div>
+        </div>
+      </div>  
+    </div>
+  `;
+  }
+
   // Request base64 image from background script
   chrome.runtime.sendMessage(
     { type: 'getBase64Image', imageUrl: avatar },
-    response => {
+    (response) => {
       if (response.success) {
         popup.querySelector('.popup-footer img').src = response.base64Data;
       } else {
@@ -112,6 +156,16 @@ function showPopup(row) {
   // Add close button functionality
   popup.querySelector('.close-button').addEventListener('click', () => {
     popup.remove();
+  });
+
+  // Add style-classic button functionality
+  popup.querySelector('.style-classic-button').addEventListener('click', () => {
+    showPopup(row, (style = 'classic'));
+  });
+
+  // Add style-black button functionality
+  popup.querySelector('.style-black-button').addEventListener('click', () => {
+    showPopup(row, (style = 'black'));
   });
 
   // Add "Save Image" button functionality
