@@ -94,7 +94,7 @@ function showPopup(row, style = 'classic') {
         <div class="popup-quot" style="text-align: end;font-size: 5vh">”</div>
       </div>
       <div class="popup-footer border" style="display: flex; align-items: center;">
-        <img class="border" src=${avatar} style="width: 45px; height: 45px; object-fit: cover;border-radius: 50%;">
+        <img class="border popup-avatar" src=${avatar} style="width: 45px; height: 45px; object-fit: cover;border-radius: 50%;">
         <div class="popup-userName border" style="display: flex;
   flex-direction: column;margin-left: 5%;">
           <div class="border" style="font-size: small">@g0v Slack #${channelName}</div>
@@ -125,7 +125,7 @@ function showPopup(row, style = 'classic') {
         ${messageTime}    
       </div>
       <div class="popup-meme" style="display:flex; padding: 5vh 0; justify-content: space-between;">
-        <img class="border" src=${avatar} style="width: 100px; height: 100px; object-fit: cover;">
+        <img class="border popup-avatar" src=${avatar} style="width: 100px; height: 100px; object-fit: cover;">
         <div class="popup-userName border" style="display: flex; flex-direction: column;margin-left: 5%;">
           <p class="meme-content" style="padding: 3vh; word-break: break-word;min-width: 400px">
           ${content}
@@ -145,10 +145,10 @@ function showPopup(row, style = 'classic') {
     { type: 'getBase64Image', imageUrl: avatar },
     (response) => {
       if (response.success) {
-        popup.querySelector('.popup-footer img').src = response.base64Data;
+        popup.querySelector('.popup-avatar').src = response.base64Data;
       } else {
         console.log('Failed to convert image:', response.error);
-        popup.querySelector('.popup-footer img').src = avatar;
+        popup.querySelector('.popup-avatar').src = avatar;
       }
     }
   );
