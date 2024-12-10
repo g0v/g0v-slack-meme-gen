@@ -2,7 +2,13 @@
 
 這是一個 Chrome 擴充功能，專門為 [g0v Slack Archive](https://g0v-slack-archive.g0v.ronny.tw/) 頁面設計，可以在訊息旁新增按鈕並以彈出視窗顯示內容。
 
-![image](https://github.com/user-attachments/assets/22195941-25a1-48cc-91cf-3853dc494b9b)
+經典款迷因圖
+
+<img src="https://github.com/user-attachments/assets/22195941-25a1-48cc-91cf-3853dc494b9b" width="300" alt="經典款迷因圖">
+
+黑底款迷因圖
+
+<img src="https://github.com/user-attachments/assets/7b4bd457-916e-4618-a159-cfa7f3187606" width="300" alt="黑底款迷因圖">
 
 ## 功能特色
 
@@ -10,6 +16,7 @@
 - 點擊按鈕可開啟包含訊息內容的彈出視窗
 - 簡潔現代的彈出視窗設計，具備關閉功能
 - 支援所有 g0v Slack Archive 頻道頁面
+- 可選擇要下載「經典」還是「黑底」風格的訊息迷因
 
 ## 安裝方式
 
