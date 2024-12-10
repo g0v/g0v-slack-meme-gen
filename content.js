@@ -83,12 +83,12 @@ function showPopup(row) {
         </p>
         <div class="popup-quot" style="text-align: end;font-size: 5vh">”</div>
       </div>
-      <div class="popup-footer" style="display: flex;">
-        <img src=${avatar} width="36" height="36">
-        <div class="popup-userName" style="display: flex;
+      <div class="popup-footer border" style="display: flex; align-items: center;">
+        <img class="border" src=${avatar} style="width: 45px; height: 45px; object-fit: cover;border-radius: 50%;">
+        <div class="popup-userName border" style="display: flex;
   flex-direction: column;margin-left: 5%;">
-          <div style="font-size: small">@g0v Slack #${channelName}</div>
-          <div style="font-size: large">
+          <div class="border" style="font-size: small">@g0v Slack #${channelName}</div>
+          <div class="border" style="font-size: large">
           <strong>${userName}</strong>
           </div>
         </div>
