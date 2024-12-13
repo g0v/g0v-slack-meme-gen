@@ -1,10 +1,31 @@
-.row-action-button {
+.my-button {
   padding: 5px 10px;
-  background-color: #007bff;
-  color: white;
   border: none;
   border-radius: 4px;
   cursor: pointer;
+}
+
+.row-action-button {
+  background-color: #007bff;
+  color: white;
+}
+
+.style-classic-button {
+  background-color: #ececec;
+  color: black;
+}
+
+.style-classic-button:hover {
+  background-color: #b3b3b3;
+}
+
+.style-black-button {
+  background-color: #1e1e1e;
+  color: white;
+}
+
+.style-black-button:hover {
+  background-color: #4a4a4a;
 }
 
 .row-action-button:hover {
@@ -51,32 +72,6 @@
   max-width: 200px;
   display: flex;
   justify-content: space-between;
-}
-
-.style-classic-button {
-  padding: 5px 10px;
-  background-color: #ececec;
-  color: black;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.style-classic-button:hover {
-  background-color: #b3b3b3;
-}
-
-.style-black-button {
-  padding: 5px 10px;
-  background-color: #1e1e1e;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-}
-
-.style-black-button:hover {
-  background-color: #4a4a4a;
 }
 
 .popup-content {
